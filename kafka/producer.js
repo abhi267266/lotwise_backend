@@ -6,16 +6,15 @@ import { Kafka } from 'kafkajs';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// ============ KAFKA CLIENT SETUP - RAILWAY COMPATIBLE ============
 const kafka = new Kafka({
-  clientId: 'lotwise-backend',
-  brokers: (process.env.KAFKA_BOOTSTRAP_SERVERS || 'localhost:9092').split(','),
-  ssl: process.env.KAFKA_SECURITY_PROTOCOL === 'SASL_SSL',
+  clientId: 'my-app',
+  brokers: [process.env.KAFKA_BOOTSTRAP_SERVERS],
   sasl: {
-    mechanism: (process.env.KAFKA_SASL_MECHANISM || 'plain').toLowerCase(),
+    mechanism: 'plain',
     username: process.env.KAFKA_SASL_USERNAME,
     password: process.env.KAFKA_SASL_PASSWORD,
   },
+  ssl: process.env.KAFKA_SECURITY_PROTOCOL === 'SASL_SSL',
 });
 
 const producer = kafka.producer({

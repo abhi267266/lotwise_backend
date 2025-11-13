@@ -5,16 +5,15 @@ import {pool} from '../db.js';
 // In both kafka/producer.js and kafka/consumer.js
 
 const kafka = new Kafka({
-  clientId: 'lotwise-backend',
-  brokers: (process.env.KAFKA_BOOTSTRAP_SERVERS || 'localhost:9092').split(','),
-  ssl: process.env.KAFKA_SECURITY_PROTOCOL === 'SASL_SSL',
+  clientId: 'my-app',
+  brokers: [process.env.KAFKA_BOOTSTRAP_SERVERS],
   sasl: {
-    mechanism: (process.env.KAFKA_SASL_MECHANISM || 'plain').toLowerCase(),
+    mechanism: 'plain',
     username: process.env.KAFKA_SASL_USERNAME,
     password: process.env.KAFKA_SASL_PASSWORD,
   },
+  ssl: process.env.KAFKA_SECURITY_PROTOCOL === 'SASL_SSL',
 });
-
 const consumer = kafka.consumer({ groupId: 'lotwise-group' });
 
 export const startConsumer = async () => {
