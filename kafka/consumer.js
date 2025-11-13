@@ -21,7 +21,7 @@ export const startConsumer = async () => {
     await consumer.connect();
     console.log('✅ Kafka consumer connected');
 
-    await consumer.subscribe({ topic: 'trades', fromBeginning: true });
+    await consumer.subscribe({ topic: 'trades', fromBeginning: false });
 
     await consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
