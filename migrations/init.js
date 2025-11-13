@@ -1,6 +1,6 @@
 import { pool } from '../db.js';
 
-const migrate = async () => {
+export const migrate = async () => {
   // A little more flair for your console
   console.log('🔥 Nuke and Pave Migration Initiated... 🔥');
 
@@ -45,11 +45,7 @@ const migrate = async () => {
     console.log('✅ Database reset complete.');
   } catch (err) {
     console.error('❌ Migration failed:', err);
-  } finally {
-    // This ends the pool. Only use this if it's a standalone script.
-    // If this code runs in a long-running app, you shouldn't call pool.end().
-    await pool.end();
   }
 };
+// migrate();
 
-migrate();
