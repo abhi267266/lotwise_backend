@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import tradeRoutes from './routes/trades.js';
 import { connectProducer } from './kafka/producer.js';
 import { startConsumer } from './kafka/consumer.js';
+import { migrate } from './migrations/init.js';
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use('/api', tradeRoutes);
 
 const PORT = process.env.PORT || 5000;
+
 
 app.listen(PORT, async () => {
   await connectProducer();
